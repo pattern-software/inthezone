@@ -75,6 +75,15 @@ select, input {
     appearance: none;
     background: none;
     border: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    line-height: 1em;
+    width: 50%;
+    height: 2.5em;
+    border: none;
+    border-radius: 14px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.10);
 }
 
 select, input:focus {
