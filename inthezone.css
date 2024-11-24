@@ -237,7 +237,7 @@ body {
     }
 
     #timezone1, #timezone2, #timezone3 {
-        display: flex; /* Use flexbox for alignment */
+       display: inline-flex; /* Use inline-flex for better alignment */
     align-items: center; /* Center items vertically */
     justify-content: center; /* Center items horizontally */
     background-color: rgba(0, 0, 0, 0.10); /* Ensure background is consistent */
@@ -245,8 +245,12 @@ body {
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margin */
     color: #000000;
+    width: 100%; /* Ensure full width */
     height: 2.5em; /* Set a specific height */
     text-align: center; /* Center text */
-    line-height: normal; /* Reset line-height */
+    line-height: 2.5em; /* Align text vertically */
+    font-family: 'Courier New', Courier, monospace; /* Ensure consistent font */
+    font-size: 1em; /* Ensure consistent font size */
+    appearance: none; /* Remove default styling */
 }
 
