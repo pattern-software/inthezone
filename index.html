@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In The Zone</title>
+    <link rel="stylesheet" href="inthezone.css">
+</head>
+<body>
+
+<div class="all-content">
+<h1>In The Zone</h1>
+
+
+<div class="all-time-zones">
+    <div class="time-zone" id="green">
+        <select id="timezone1">
+            <option value="local">Local Time</option>
+            <option value="America/Los_Angeles">Los Angeles</option>
+            <option value="America/Denver">Denver</option>
+            <option value="America/Austin">Austin</option>
+            <option value="America/Chicago">Chicago</option>
+            <option value="America/New_York">New York</option>
+            <option value="Europe/London">London</option>
+            <option value="Europe/Berlin">Berlin</option>
+            <option value="Europe/Istanbul">Istanbul</option>
+            <option value="Asia/Dubai">Dubai</option>
+            <option value="Asia/Bangkok">Bangkok</option>
+            <option value="Asia/Shanghai">Shanghai</option>
+            <option value="Asia/Tokyo">Tokyo</option>
+        </select>
+        <input type="time" id="time1">
+    </div>
+    <div class="time-zone" id="blue">
+        <select id="timezone2">
+            <option value="local">Local Time</option>
+            <option value="America/Los_Angeles">Los Angeles</option>
+            <option value="America/Denver">Denver</option>
+            <option value="America/Austin">Austin</option>
+            <option value="America/Chicago">Chicago</option>
+            <option value="America/New_York">New York</option>
+            <option value="Europe/London">London</option>
+            <option value="Europe/Berlin">Berlin</option>
+            <option value="Europe/Istanbul">Istanbul</option>
+            <option value="Asia/Dubai">Dubai</option>
+            <option value="Asia/Bangkok">Bangkok</option>
+            <option value="Asia/Shanghai">Shanghai</option>
+            <option value="Asia/Tokyo">Tokyo</option>
+        </select>
+        <input type="time" id="time2">
+    </div>
+    <div class="time-zone" id="brown">
+        <select id="timezone3">
+            <option value="local">Local Time</option>
+            <option value="America/Los_Angeles">Los Angeles</option>
+            <option value="America/Denver">Denver</option>
+            <option value="America/Austin">Austin</option>
+            <option value="America/Chicago">Chicago</option>
+            <option value="America/New_York">New York</option>
+            <option value="Europe/London">London</option>
+            <option value="Europe/Berlin">Berlin</option>
+            <option value="Europe/Istanbul">Istanbul</option>
+            <option value="Asia/Dubai">Dubai</option>
+            <option value="Asia/Bangkok">Bangkok</option>
+            <option value="Asia/Shanghai">Shanghai</option>
+            <option value="Asia/Tokyo">Tokyo</option>
+        </select>
+        <input type="time" id="time3">
+    </div>
+</div>
+
+<p><a href="https://pattern-software.com" target="_blank">Pattern</a>, 2024</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+<script>
+    const timezone1 = document.getElementById('timezone1');
+    const timezone2 = document.getElementById('timezone2');
+    const timezone3 = document.getElementById('timezone3');
+    const time1 = document.getElementById('time1');
+    const time2 = document.getElementById('time2');
+    const time3 = document.getElementById('time3');
+
+    const timezones = [
+        'local', 'America/Chicago', 'America/New_York', 'America/Denver', 'America/Los_Angeles', 
+        'America/Austin', 'Europe/London', 'Europe/Berlin', 'Europe/Istanbul', 
+        'Asia/Dubai', 'Asia/Shanghai', 'Asia/Tokyo', 'Asia/Kuala_Lumpur', 'Asia/Bangkok'
+    ];
+
+    function convertTime(inputTime, fromZone, toZone) {
+        if (!inputTime) return '';
+        const [hours, minutes] = inputTime.split(':');
+        const fromDateTime = luxon.DateTime.fromObject(
+            { hour: hours || 0, minute: minutes || 0 },
+            { zone: fromZone === 'local' ? luxon.DateTime.local().zoneName : fromZone }
+        );
+        const toDateTime = fromDateTime.setZone(toZone === 'local' ? luxon.DateTime.local().zoneName : toZone);
+        return toDateTime.toFormat('HH:mm');
+    }
+
+    function convertFromFirstCircle() {
+        const localTime = time1.value;
+        if (localTime) {
+            time2.value = convertTime(localTime, timezone1.value, timezone2.value);
+            time3.value = convertTime(localTime, timezone1.value, timezone3.value);
+        }
+    }
+
+    function convertFromSecondCircle() {
+        const localTime = time2.value;
+        if (localTime) {
+            time1.value = convertTime(localTime, timezone2.value, timezone1.value);
+            time3.value = convertTime(localTime, timezone2.value, timezone3.value);
+        }
+    }
+
+    function convertFromThirdCircle() {
+        const localTime = time3.value;
+        if (localTime) {
+            time1.value = convertTime(localTime, timezone3.value, timezone1.value);
+            time2.value = convertTime(localTime, timezone3.value, timezone2.value);
+        }
+    }
+
+    function savePreferences() {
+        localStorage.setItem('timezone1', timezone1.value);
+        localStorage.setItem('timezone2', timezone2.value);
+        localStorage.setItem('timezone3', timezone3.value);
+    }
+
+    function loadPreferences() {
+        return {
+            timezone1: localStorage.getItem('timezone1') || 'local',
+            timezone2: localStorage.getItem('timezone2') || timezones[Math.floor(Math.random() * timezones.length)],
+            timezone3: localStorage.getItem('timezone3') || timezones[Math.floor(Math.random() * timezones.length)]
+        };
+    }
+
+    function initializeTimeConversion() {
+        // Load preferences or select random time zones
+        const preferences = loadPreferences();
+
+        timezone1.value = preferences.timezone1;
+        timezone2.value = preferences.timezone2;
+        timezone3.value = preferences.timezone3;
+
+        const localTime = luxon.DateTime.local().toFormat('HH:mm');
+        time1.value = localTime;
+        convertFromFirstCircle();
+    }
+
+    window.onload = initializeTimeConversion;
+
+    timezone1.addEventListener('change', () => {
+        convertFromFirstCircle();
+        savePreferences();
+    });
+    time1.addEventListener('input', convertFromFirstCircle);
+
+    timezone2.addEventListener('change', () => {
+        convertFromSecondCircle();
+        savePreferences();
+    });
+    time2.addEventListener('input', convertFromSecondCircle);
+
+    timezone3.addEventListener('change', () => {
+        convertFromThirdCircle();
+        savePreferences();
+    });
+    time3.addEventListener('input', convertFromThirdCircle);
+</script>
+
+</body>
+</html>
