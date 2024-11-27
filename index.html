@@ -19,7 +19,6 @@
             <option value="local">Local Time</option>
             <option value="America/Los_Angeles">Los Angeles</option>
             <option value="America/Denver">Denver</option>
-            <option value="America/Austin">Austin</option>
             <option value="America/Chicago">Chicago</option>
             <option value="America/New_York">New York</option>
             <option value="Europe/London">London</option>
@@ -37,7 +36,6 @@
             <option value="local">Local Time</option>
             <option value="America/Los_Angeles">Los Angeles</option>
             <option value="America/Denver">Denver</option>
-            <option value="America/Austin">Austin</option>
             <option value="America/Chicago">Chicago</option>
             <option value="America/New_York">New York</option>
             <option value="Europe/London">London</option>
@@ -55,7 +53,6 @@
             <option value="local">Local Time</option>
             <option value="America/Los_Angeles">Los Angeles</option>
             <option value="America/Denver">Denver</option>
-            <option value="America/Austin">Austin</option>
             <option value="America/Chicago">Chicago</option>
             <option value="America/New_York">New York</option>
             <option value="Europe/London">London</option>
@@ -68,7 +65,16 @@
         </select>
         <input type="time" id="time3">
     </div>
+
+    <div id="reset-button-container">
+        <button id="icon">
+            <img src="icon.svg" alt="Icon" class="icon">
+        </button>
+        </div>
 </div>
+
+
+
 
 <p><a href="https://pattern-software.com" target="_blank">Pattern</a>, 2024</p>
 </div>
@@ -129,26 +135,55 @@
         localStorage.setItem('timezone3', timezone3.value);
     }
 
-    function loadPreferences() {
-        return {
-            timezone1: localStorage.getItem('timezone1') || 'local',
-            timezone2: localStorage.getItem('timezone2') || timezones[Math.floor(Math.random() * timezones.length)],
-            timezone3: localStorage.getItem('timezone3') || timezones[Math.floor(Math.random() * timezones.length)]
-        };
-    }
+    // Load preferences or select random time zones
+function loadPreferences() {
+    return {
+        timezone1: localStorage.getItem('timezone1') || getRandomTimeZone(),
+        timezone2: localStorage.getItem('timezone2') || getRandomTimeZone(),
+        timezone3: localStorage.getItem('timezone3') || getRandomTimeZone(),
+    };
+}
 
-    function initializeTimeConversion() {
-        // Load preferences or select random time zones
-        const preferences = loadPreferences();
+// Helper function to select a random time zone from the available list
+function getRandomTimeZone() {
+    const timezones = [
+        'America/Los_Angeles', 'America/Denver', 'America/Chicago', 'America/New_York',
+        'Europe/London', 'Europe/Berlin', 'Europe/Istanbul', 'Asia/Dubai',
+        'Asia/Bangkok', 'Asia/Shanghai', 'Asia/Tokyo'
+    ];
+    const randomIndex = Math.floor(Math.random() * timezones.length);
+    return timezones[randomIndex];
+}
 
-        timezone1.value = preferences.timezone1;
-        timezone2.value = preferences.timezone2;
-        timezone3.value = preferences.timezone3;
+    // Initialize time conversion with saved preferences or random time zones
+function initializeTimeConversion() {
+    const preferences = loadPreferences();
 
-        const localTime = luxon.DateTime.local().toFormat('HH:mm');
-        time1.value = localTime;
-        convertFromFirstCircle();
-    }
+    // Set time zones based on preferences or random values
+    timezone1.value = preferences.timezone1;
+    timezone2.value = preferences.timezone2;
+    timezone3.value = preferences.timezone3;
+
+    // Set current time for all three time zones
+    setCurrentTimeForZone(time1, timezone1);
+    setCurrentTimeForZone(time2, timezone2);
+    setCurrentTimeForZone(time3, timezone3);
+
+    // Ensure all time zones are synchronized
+    convertFromFirstCircle();
+}
+
+// Function to set the current time for a specific time zone
+function setCurrentTimeForZone(timeInput, timezoneSelect) {
+    const selectedTimeZone = timezoneSelect.value === 'local'
+        ? luxon.DateTime.local().zoneName
+        : timezoneSelect.value;
+    const currentTimeInZone = luxon.DateTime.now().setZone(selectedTimeZone).toFormat('HH:mm');
+    timeInput.value = currentTimeInZone; // Set the input field to the current time in the selected zone
+}
+
+// Call the updated initializeTimeConversion function on page load
+window.onload = initializeTimeConversion;
 
     window.onload = initializeTimeConversion;
 
@@ -169,6 +204,73 @@
         savePreferences();
     });
     time3.addEventListener('input', convertFromThirdCircle);
+
+    function updateTimeOnTimeZoneChange(timezoneSelect, timeInput) {
+    const selectedTimeZone = timezoneSelect.value === 'local' ? luxon.DateTime.local().zoneName : timezoneSelect.value;
+    const currentTime = luxon.DateTime.now().setZone(selectedTimeZone).toFormat('HH:mm');
+    timeInput.value = currentTime; // Set the time input to the current time in the selected zone
+}
+
+// Add event listeners to update time when the time zone is changed
+timezone1.addEventListener('change', () => {
+    updateTimeOnTimeZoneChange(timezone1, time1);
+    convertFromFirstCircle();
+    savePreferences();
+});
+
+timezone2.addEventListener('change', () => {
+    updateTimeOnTimeZoneChange(timezone2, time2);
+    convertFromSecondCircle();
+    savePreferences();
+});
+
+timezone3.addEventListener('change', () => {
+    updateTimeOnTimeZoneChange(timezone3, time3);
+    convertFromThirdCircle();
+    savePreferences();
+});
+
+
+// Update the reset button text to display the current local time
+function updateResetButtonTime() {
+    const currentTime = luxon.DateTime.local().toFormat('HH:mm'); // Get the current local time
+    const resetButton = document.getElementById('icon');
+    resetButton.innerHTML = `
+        <img src="icon.svg" alt="Icon" class="icon">
+        ${currentTime}
+    `;
+}
+
+// Function to reset all time zones to the current time in the user's location
+function resetToCurrentTime() {
+    const currentTime = luxon.DateTime.local().toFormat('HH:mm'); // Get the current local time
+    const currentTimeZone = luxon.DateTime.local().zoneName; // Get the user's local time zone
+
+    // Update each time field to the current time, retaining the time zone conversions
+    time1.value = convertTime(currentTime, currentTimeZone, timezone1.value);
+    time2.value = convertTime(currentTime, currentTimeZone, timezone2.value);
+    time3.value = convertTime(currentTime, currentTimeZone, timezone3.value);
+}
+
+// Add event listener to update button text on page load
+window.addEventListener('load', updateResetButtonTime);
+
+// Add interval to update the reset button text every minute
+setInterval(updateResetButtonTime, 60000); // Updates every 60 seconds
+
+// Add event listener for reset functionality
+document.getElementById('icon').addEventListener('click', resetToCurrentTime);
+
+
+// Assuming you have a reference to your dropdown elements
+const dropdowns = document.querySelectorAll('#timezone1, #timezone2, #timezone3');
+
+dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('change', function() {
+        this.blur(); // Remove focus from the dropdown
+    });
+});
+
 </script>
 
 </body>
