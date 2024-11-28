@@ -273,7 +273,11 @@ dropdowns.forEach(dropdown => {
 
     
     document.getElementById('icon').addEventListener('touchend', function () {
-    this.classList.remove('active'); // Remove any active styles manually
+    const button = this;
+    button.style.transition = 'none'; // Temporarily disable transition
+    requestAnimationFrame(() => {
+        button.style.transition = ''; // Re-enable transition
+    });
 });
 
 </script>
