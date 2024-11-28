@@ -323,5 +323,10 @@ body {
     #icon:active {
     background-color: rgba(0, 0, 0, 0.17);
 }
+
+    #icon.pressed {
+    background-color: rgba(0, 0, 0, 0.17); /* Darker color for visual feedback */
+}
+    
 }
 
