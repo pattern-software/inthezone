@@ -319,5 +319,9 @@ body {
         color: #000000; /* Set the desired text color */
     
     }
+
+    #icon:active {
+    background-color: rgba(0, 0, 0, 0.17);
+}
 }
 
