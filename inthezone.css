@@ -58,6 +58,7 @@ input[type="time"] {
     background-color: rgba(0, 0, 0, 0.10);
     transition: all 0.2s ease-in-out;
     border: 1px solid transparent;
+    cursor: text;
 }
 
 input[type="time"]:hover {
@@ -107,6 +108,7 @@ select, input:focus {
     background-color: rgba(0, 0, 0, 0.10);
     transition: all 0.2s ease-in-out;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 
 #timezone1:hover, #timezone2:hover, #timezone3:hover {
@@ -169,6 +171,12 @@ select, input:focus {
 
 #icon:hover {
     background-color: rgba(0, 0, 0, 0.17);
+    cursor: pointer;
+
+}
+
+#icon:active {
+    background-color: rgba(0, 0, 0, 0.17);
 }
 
 
@@ -227,6 +235,7 @@ body {
         text-align: center;
         background-color: rgba(0, 0, 0, 0.10);
         transition: all 0.1s ease-in-out;
+        border: 1px solid transparent;
     }
 
     input[type="time"] {
@@ -240,6 +249,7 @@ body {
         text-align: center;
         background-color: rgba(0, 0, 0, 0.10);
         transition: all 0.1s ease-in-out;
+        border: 1px solid transparent;
     }
   }
 
@@ -281,6 +291,7 @@ body {
         appearance: none;
         padding: 0; /* Reset padding for consistency */
         margin: 0; /* Reset margin for consistency */
+        border: 1px solid transparent;
     }
     
     select:focus {
@@ -300,6 +311,7 @@ body {
         padding: 0;
         margin: 0;
         color: #000000;
+        border: 1px solid transparent;
     }
     
 
@@ -313,25 +325,12 @@ body {
     height: 2.5em;
     display: block;
     line-height: 2.5em;
+    border: 1px solid transparent;
     }
 
     #reset-button-container button {
         color: #000000; /* Set the desired text color */
     
     }
-
-#icon {
-    -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation; /* Optimize for button taps */
-}
-    
-    #icon:active {
-    background-color: rgba(0, 0, 0, 0.17);
-}
-
-    #icon.pressed {
-    background-color: rgba(0, 0, 0, 0.17); /* Darker color for visual feedback */
-}
-    
 }
 
