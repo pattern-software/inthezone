@@ -272,12 +272,15 @@ dropdowns.forEach(dropdown => {
 });
 
     
-    document.getElementById('icon').addEventListener('touchend', function () {
+    document.getElementById('icon').addEventListener('touchstart', function () {
+    this.classList.add('pressed');
+});
+
+document.getElementById('icon').addEventListener('touchend', function () {
     const button = this;
-    button.style.transition = 'none'; // Temporarily disable transition
-    requestAnimationFrame(() => {
-        button.style.transition = ''; // Re-enable transition
-    });
+    setTimeout(() => {
+        button.classList.remove('pressed');
+    }, 200); // Allow a brief delay for visual feedback
 });
 
 </script>
