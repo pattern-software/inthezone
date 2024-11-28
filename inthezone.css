@@ -320,6 +320,11 @@ body {
     
     }
 
+#icon {
+    -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation; /* Optimize for button taps */
+}
+    
     #icon:active {
     background-color: rgba(0, 0, 0, 0.17);
 }
