@@ -271,20 +271,20 @@ body {
         gap: 0.5em;
     }
 
-    select, input {
-        -webkit-appearance: none;
+    select {
+        text-align: center;
+        text-align-last: center; /* For centering selected text in dropdown */
+        -webkit-appearance: none; /* Remove default styles */
         -moz-appearance: none;
         appearance: none;
-        background: rgba(0, 0, 0, 0.10);
-        border: none;
-        text-align: center;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 1em;
-        line-height: 1em;
-        padding: 0;
-        margin: 0;
-        color: #000000;
+        padding: 0; /* Reset padding for consistency */
+        margin: 0; /* Reset margin for consistency */
     }
+    
+    select:focus {
+        outline: none; /* Remove the outline on focus */
+    }
+    
 
     #timezone1, #timezone2, #timezone3 {
     text-align: center;
