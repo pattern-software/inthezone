@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('inter.ttf') format('truetype');
+}
+
 .all-content {
     display: flex;
       flex-direction: column;
@@ -13,6 +18,20 @@
     width: 100%;
 }
 
+.header {
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+
+.time-functions {
+    gap: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
 .time-zone {
     width: 20%;
     border-radius: 36px;
@@ -25,6 +44,14 @@
     padding-top: 2%;
     padding-bottom: 2%;
     gap: 0.5em;
+    transition: all 0.25s ease-in-out;
+    border: 1px solid rgba(0, 0, 0, 0);
+
+}
+
+.time-zone:hover {
+    transition: all 0.15s ease-in-out;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #green {
@@ -37,6 +64,15 @@
 
 #brown {
     background-color: #CCC8B7;
+}
+
+
+.bottom-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
 }
 
 
@@ -138,6 +174,121 @@ select, input:focus {
 
 }
 
+.button {
+    font-family: 'Courier New', Courier, monospace;
+  font-size: 1em;
+  line-height: 1em;
+  height: 2.5em;
+  border: none;
+  border-radius: 14px;
+  background-color: rgba(0, 0, 0, 0.10);
+  padding: 1em;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25em;
+  width: auto;
+  position: relative;
+  white-space: nowrap;
+}
+
+#button-disabled {
+    color: #8A8A8A;
+    pointer-events: default;
+}
+
+.button:hover {
+    background-color: rgba(0, 0, 0, 0.17);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.button .modal {
+    font-family: Inter;
+    font-weight: 475;
+    letter-spacing: -0.015em;
+    font-size: 0.8em;
+    line-height: 0.5em;
+    color: white;
+    position: absolute;
+    height: 0.5em;
+    top: 100%;
+    left: 0;
+    background-color: #A2A2A2;
+    border: 1px solid white;
+    border-radius: 1em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.96) translateY(-6em);
+    transition: opacity 0.12s ease, visibility 0.12s ease, transform 0.12s ease;
+    pointer-events: none;
+    text-align: center; /* Center the text horizontally */
+  }
+
+  
+  
+  .button:hover .modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(-6.2em);
+    pointer-events: auto;
+  }
+
+
+  .button .modal-down {
+    font-family: Inter;
+    font-weight: 475;
+    letter-spacing: -0.015em;
+    font-size: 0.8em;
+    line-height: 0.5em;
+    color: white;
+    position: absolute;
+    height: 0.5em;
+    top: 100%;
+    left: 0;
+    background-color: #A2A2A2;
+    border: 1px solid white;
+    border-radius: 1em;
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.96) translateY(0.4em);
+    transition: opacity 0.12s ease, visibility 0.12s ease, transform 0.12s ease;
+    pointer-events: none;
+    text-align: center; /* Center the text horizontally */
+  }
+
+  .button:hover .modal-down {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0.6em);
+    pointer-events: auto;
+  }
+
+#button-dashed {
+    background-color: white;
+    border: 1px dashed rgba(0, 0, 0, 0.35);
+    transition: all 0.2s ease-in-out;
+    color: #8A8A8A;
+}
+
+#button-dashed:hover {
+    border: 1px dashed rgba(0, 0, 0, 0.35);
+    transition: all 0.2s ease-in-out;
+}
+
 #icon {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1em;
@@ -147,22 +298,24 @@ select, input:focus {
     border: none;
     border-radius: 14px;
     text-align: center;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.10);
-    transition: all 0.1s ease-in-out;
+    transition: all 0.2s ease-in-out;
     padding-left: 1em;
     padding-right: 1em;
+    gap: 0.25em;
+    position: relative;
 }
 
 #reset-button-container {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    width: 100%;
 }
 
 .icon {
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease-in-out;
 }
 
 #icon:hover .icon {
@@ -172,12 +325,19 @@ select, input:focus {
 #icon:hover {
     background-color: rgba(0, 0, 0, 0.17);
     cursor: pointer;
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.13);
+    transition: all 0.2s ease-in-out;
+
 
 }
 
 #icon:active {
-    background-color: rgba(0, 0, 0, 0.17);
+    transform: scale(0.96);
+    background-color: rgba(0, 0, 0, 0.20);
+    transition: all 0.1s ease-in-out;
 }
+
+
 
 
 h1 {
@@ -259,6 +419,8 @@ body {
 
 
 @media (max-width: 700px) {
+
+    
     
     .all-time-zones {
         display: flex; /* Ensure display is set to flex */
@@ -279,6 +441,14 @@ body {
         padding-top: 4%;
         padding-bottom: 4%;
         gap: 0.5em;
+    }
+
+    .header {
+        gap: 20px;
+        padding-top: 1em;
+        padding-right: 0.6em;
+        padding-left: 0.6em;
+
     }
 
 
@@ -331,6 +501,13 @@ body {
     #reset-button-container button {
         color: #000000; /* Set the desired text color */
     
+    }
+
+    h1 {
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 100;
+        font-size: 1.2em;
+        line-height: 1.2em;
     }
 }
 
