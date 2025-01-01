@@ -9,11 +9,18 @@
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.5.0/build/global/luxon.min.js"></script>
 </head>
 <body>
-
 <div class="all-content">
-<h1>In The Zone</h1>
+ 
+    <div class="header">
+            <button id="icon"></button>
+        <h1>In The Zone</h1>
+        <button class="button" id="button-disabled">Edit
+            <div class="modal-down">Coming shortly</div>
+        </button>
+    </div>
 
 
+<div class="time-functions">
 <div class="all-time-zones">
     <div class="time-zone" id="green">
         <select id="timezone1">
@@ -66,18 +73,22 @@
         </select>
         <input type="time" id="time3">
     </div>
+</div>
 
-    <div id="reset-button-container">
-        <button id="icon">
-            <img src="icon.svg" alt="Icon" class="icon">
-        </button>
-        </div>
+<div class="add">
+    <button class="button" id="button-dashed"><img src="add.svg" alt="Add">Add
+        <div class="modal">Soon...</div>
+    </button>
+</div>
 </div>
 
 
-
-
-<p><a href="https://pattern-software.com" target="_blank">Pattern</a>, 2024</p>
+<div class="bottom-content">
+    <button class="button" id="button-disabled">
+        <img src="schedule.svg" alt="Schedule">Schedule meeting
+        <div class="modal">Coming soon...</div>
+      </button>
+    <p><a href="https://pattern-software.com" target="_blank">Pattern</a>, 2024</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/luxon@3.5.0/build/global/luxon.min.js"></script>
@@ -237,7 +248,7 @@ function updateResetButtonTime() {
     const currentTime = luxon.DateTime.local().toFormat('HH:mm'); // Get the current local time
     const resetButton = document.getElementById('icon');
     resetButton.innerHTML = `
-        <img src="icon.svg" alt="Icon" class="icon">
+        <img src="rotate.svg" alt="Icon" class="icon">
         ${currentTime}
     `;
 }
@@ -272,19 +283,15 @@ dropdowns.forEach(dropdown => {
     });
 });
 
-    
-    document.getElementById('icon').addEventListener('touchstart', function () {
-    this.classList.add('pressed');
-});
 
 document.getElementById('icon').addEventListener('touchend', function () {
-    const button = this;
-    setTimeout(() => {
-        button.classList.remove('pressed');
-    }, 200); // Allow a brief delay for visual feedback
+    this.classList.remove('active'); // Remove any active styles manually
 });
 
 </script>
+
+
+
 
 </body>
 </html>
