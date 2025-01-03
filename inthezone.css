@@ -309,6 +309,12 @@ select, input:focus {
     position: relative;
 }
 
+#icon, #icon input {
+    color: inherit;
+    -webkit-text-fill-color: inherit;
+  }
+  
+
 #reset-button-container {
     display: flex;
     flex-wrap: wrap;
