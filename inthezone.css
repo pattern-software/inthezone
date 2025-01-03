@@ -465,7 +465,22 @@ body {
       #icon:active, input[type="time"]:active, .button:active {
         background-color: rgba(0, 0, 0, 0.10);
       }
-    
+
+
+
+
+     input[type="time"], #timezone1, #timezone2, #timezone3 {
+  background-color: rgba(0, 0, 0, 0.10); /* Default background */
+  transition: background-color 0.2s ease-in-out;
+}
+
+input[type="time"]:focus, #timezone1:focus, #timezone2:focus, #timezone3:focus {
+  background-color: rgba(0, 0, 0, 0.17); /* Focused background */
+}
+
+input[type="time"].value-set, #timezone1.value-set, #timezone2.value-set, #timezone3.value-set {
+  background-color: rgba(0, 0, 0, 0.10); /* Background after value is set */
+}
 
 
     select {
