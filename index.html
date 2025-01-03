@@ -288,6 +288,28 @@ document.getElementById('icon').addEventListener('touchend', function () {
     this.classList.remove('active'); // Remove any active styles manually
 });
 
+
+
+
+// Function to handle input change and reset styles
+function handleInputChange(event) {
+  const input = event.target;
+
+  // Check if input has a value
+  if (input.value) {
+    input.classList.add('value-set'); // Add class if value is set
+    input.blur(); // Remove focus after setting the value
+  } else {
+    input.classList.remove('value-set'); // Remove class if value is cleared
+  }
+}
+
+// Attach event listeners to all relevant inputs
+document.querySelectorAll('input[type="time"], #timezone1, #timezone2, #timezone3').forEach(input => {
+  input.addEventListener('change', handleInputChange); // Trigger on value change
+});
+
+
 </script>
 
 
