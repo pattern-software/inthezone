@@ -317,25 +317,28 @@ document.querySelectorAll('input[type="time"], #timezone1, #timezone2, #timezone
 // resetting time reset button on ios
 const iconButton = document.getElementById('icon');
 
+iconButton.addEventListener('click', function() {
+  // Reset time to current time (implement this function)
+  resetToCurrentTime();
+});
+
 iconButton.addEventListener('touchstart', function(e) {
-  this.classList.add('tapped');
+  this.classList.add('active');
 });
 
 iconButton.addEventListener('touchend', function(e) {
   e.preventDefault();
-  this.classList.remove('tapped');
+  this.classList.remove('active');
+  // Reset time to current time (implement this function)
+  resetToCurrentTime();
 });
 
-iconButton.addEventListener('touchcancel', function(e) {
-  this.classList.remove('tapped');
-});
+function resetToCurrentTime() {
+  // Implement the logic to reset the time to the current time
+  // Update all relevant time displays
+  console.log('Resetting to current time');
+}
 
-// Reset button state when tapping anywhere else on the document
-document.addEventListener('touchstart', function(e) {
-  if (e.target !== iconButton) {
-    iconButton.classList.remove('tapped');
-  }
-});
 
 
 
