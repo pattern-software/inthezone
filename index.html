@@ -318,23 +318,25 @@ document.querySelectorAll('input[type="time"], #timezone1, #timezone2, #timezone
 const iconButton = document.getElementById('icon');
 
 iconButton.addEventListener('touchstart', function(e) {
-  this.classList.add('active');
+  this.classList.add('tapped');
 });
 
 iconButton.addEventListener('touchend', function(e) {
   e.preventDefault();
-  this.classList.remove('active');
-  setTimeout(() => {
-    this.style.transform = '';
-    this.style.backgroundColor = '';
-  }, 300);
+  this.classList.remove('tapped');
 });
 
 iconButton.addEventListener('touchcancel', function(e) {
-  this.classList.remove('active');
-  this.style.transform = '';
-  this.style.backgroundColor = '';
+  this.classList.remove('tapped');
 });
+
+// Reset button state when tapping anywhere else on the document
+document.addEventListener('touchstart', function(e) {
+  if (e.target !== iconButton) {
+    iconButton.classList.remove('tapped');
+  }
+});
+
 
 
 
