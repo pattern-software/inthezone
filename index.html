@@ -315,17 +315,27 @@ document.querySelectorAll('input[type="time"], #timezone1, #timezone2, #timezone
 
 
 // resetting time reset button on ios
-document.getElementById('icon').addEventListener('touchend', function(e) {
+const iconButton = document.getElementById('icon');
+
+iconButton.addEventListener('touchstart', function(e) {
+  this.classList.add('active');
+});
+
+iconButton.addEventListener('touchend', function(e) {
   e.preventDefault();
-  // Trigger the click event
-  this.click();
-  // Reset the button state
+  this.classList.remove('active');
   setTimeout(() => {
-    this.blur();
     this.style.transform = '';
     this.style.backgroundColor = '';
-  }, 100);
+  }, 300);
 });
+
+iconButton.addEventListener('touchcancel', function(e) {
+  this.classList.remove('active');
+  this.style.transform = '';
+  this.style.backgroundColor = '';
+});
+
 
 
 
