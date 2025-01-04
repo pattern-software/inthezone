@@ -303,6 +303,7 @@ select, input:focus {
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.10);
     transition: all 0.2s ease-in-out;
+    -webkit-tap-highlight-color: transparent;
     padding-left: 1em;
     padding-right: 1em;
     gap: 0.25em;
@@ -456,6 +457,12 @@ body {
         padding-left: 0.6em;
 
     }
+
+    #icon {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
 
 
     #icon, input[type="time"], .button {
