@@ -345,7 +345,10 @@ select, input:focus {
 }
 
 
-
+#icon.tapped {
+    background-color: rgba(0, 0, 0, 0.20);
+    transform: scale(0.96);
+  }
 
 h1 {
     font-family: 'Courier New', Courier, monospace;
@@ -465,7 +468,10 @@ body {
         user-select: none;
       }
 
-    
+      #icon.tapped {
+        background-color: rgba(0, 0, 0, 0.20);
+        transform: scale(0.96);
+      }
 
 
     #icon, input[type="time"], .button {
