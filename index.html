@@ -290,7 +290,7 @@ document.getElementById('icon').addEventListener('touchend', function () {
 
 
 
-
+// resetting time inputs on ios after tapped
 function handleInputChange(event) {
   const input = event.target;
   if (input.value) {
@@ -310,6 +310,21 @@ function handleInputBlur(event) {
 document.querySelectorAll('input[type="time"], #timezone1, #timezone2, #timezone3').forEach(input => {
   input.addEventListener('change', handleInputChange);
   input.addEventListener('blur', handleInputBlur);
+});
+
+
+
+// resetting time reset button on ios
+document.getElementById('icon').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  // Trigger the click event
+  this.click();
+  // Reset the button state
+  setTimeout(() => {
+    this.blur();
+    this.style.transform = '';
+    this.style.backgroundColor = '';
+  }, 100);
 });
 
 
